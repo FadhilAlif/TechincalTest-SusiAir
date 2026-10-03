@@ -1,0 +1,182 @@
+@use 'sass:color';
+@use './variables' as *;
+
+:root {
+  --color-navy: #0E2138;
+  --color-bg: #F5F6F8;
+  --color-card: #FFFFFF;
+  --color-card-hover: #FAFBFC;
+  --color-text-primary: #0E2138;
+  --color-text-secondary: #6B7280;
+  --color-text-muted: #9CA3AF;
+  --color-border: #E5E7EB;
+  --color-border-subtle: rgba(14, 33, 56, 0.05);
+  --color-surface-soft: #F1F5F9;
+  --color-surface-tag: #EAEFF5;
+  --color-input-bg: #FFFFFF;
+  --shadow-sm: 0 1px 2px rgba(14, 33, 56, 0.05);
+  --shadow-card: 0 4px 16px rgba(14, 33, 56, 0.06), 0 1px 3px rgba(14, 33, 56, 0.04);
+  --shadow-elevated: 0 10px 25px rgba(14, 33, 56, 0.1);
+  --chart-grid: #E5E7EB;
+  --chart-axis: #9CA3AF;
+  --chart-tooltip-bg: #F8FAFC;
+  --chart-tooltip-border: #E2E8F0;
+}
+
+.dark {
+  --color-navy: #F8FAFC;
+  --color-bg: #0A111F;
+  --color-card: #121D2F;
+  --color-card-hover: #16243A;
+  --color-text-primary: #F8FAFC;
+  --color-text-secondary: #94A3B8;
+  --color-text-muted: #64748B;
+  --color-border: #1E2D44;
+  --color-border-subtle: rgba(255, 255, 255, 0.08);
+  --color-surface-soft: #172438;
+  --color-surface-tag: #1B2B42;
+  --color-input-bg: #0D1624;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.45), 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-elevated: 0 10px 25px rgba(0, 0, 0, 0.55);
+  --chart-grid: #1E2D44;
+  --chart-axis: #64748B;
+  --chart-tooltip-bg: #152236;
+  --chart-tooltip-border: #22344D;
+}
+
+/* ─── View Transition: circular theme toggle animation ─────────────────────── */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* Incoming new theme layer expands on top */
+::view-transition-new(root) {
+  z-index: 9999;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+  font-family: $font-family-base;
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+// App shell spanning full width
+.app-shell {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--color-bg);
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+// Responsive layout container
+.app-viewport {
+  width: 100%;
+  flex: 1;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  @media (max-width: #{$bp-tablet - 1px}) {
+    max-width: 480px;
+    background-color: var(--color-bg);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
+  }
+
+  @media (min-width: $bp-tablet) {
+    max-width: 1280px;
+    box-shadow: none;
+  }
+}
+
+.main-content {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  // Mobile padding (includes clearance for bottom navigation)
+  @media (max-width: #{$bp-tablet - 1px}) {
+    padding: 16px 20px 88px;
+    gap: 20px;
+  }
+
+  // Tablet & Desktop padding
+  @media (min-width: $bp-tablet) {
+    padding: 24px 32px 48px;
+    gap: 28px;
+  }
+}
+
+// Typography Helpers
+.font-number {
+  font-family: $font-family-base;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+
+// Button components
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $color-red;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 15px;
+  border: none;
+  border-radius: $radius-pill;
+  padding: 14px 24px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+
+  &:hover {
+    background-color: color.adjust($color-red, $lightness: -6%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(230, 55, 87, 0.25);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+// Card Surface
+.card {
+  background-color: var(--color-card);
+  border-radius: $radius-card;
+  box-shadow: var(--shadow-card);
+  padding: 18px 20px;
+  border: 1px solid var(--color-border);
+  transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}

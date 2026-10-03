@@ -1,0 +1,37 @@
+// Susi Air Brand Colors & Design System
+$color-red: #E63757;
+$color-navy-base: #0E2138;
+$color-success: #1FBF8F;
+$color-warning: #F59E0B;
+$color-danger: #E63757;
+$color-chart-accent: #22C5E8;
+
+// Dynamic CSS Variables Mapped to SCSS Variables for seamless Light/Dark theming
+$color-navy: var(--color-navy);
+$color-bg: var(--color-bg);
+$color-card: var(--color-card);
+$color-text-primary: var(--color-text-primary);
+$color-text-secondary: var(--color-text-secondary);
+$color-text-muted: var(--color-text-muted);
+$color-border: var(--color-border);
+$color-surface-soft: var(--color-surface-soft);
+$color-surface-tag: var(--color-surface-tag);
+
+// Typography
+$font-family-base: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+// Radius
+$radius-sm: 8px;
+$radius-card: 16px;
+$radius-pill: 9999px;
+
+// Shadows (Dynamic via CSS Variables)
+$shadow-sm: var(--shadow-sm);
+$shadow-card: var(--shadow-card);
+$shadow-elevated: var(--shadow-elevated);
+
+// Breakpoints
+$bp-mobile: 480px;
+$bp-tablet: 768px;
+$bp-desktop: 1024px;
+$bp-wide: 1280px;
