@@ -87,22 +87,49 @@ git clone https://github.com/fadhilfauzan/TechnicalTest-SusiAir.git
 cd TechnicalTest-SusiAir
 ```
 
-### 2. Run Backend (Port 3001)
+### Option A: One-Command Run (Recommended)
+You can run both backend and frontend concurrently with a single command from the project root:
+
+```bash
+# 1. Install dependencies for root, backend, and frontend
+npm install
+npm run install:all
+
+# 2. Run backend (port 3001) and frontend (port 3000) simultaneously
+npm run dev
+```
+
+* Backend REST API: `http://localhost:3001`
+* Frontend Application: `http://localhost:3000`
+
+To build both services simultaneously:
+```bash
+npm run build
+```
+
+To run backend unit test suite:
+```bash
+npm run test
+```
+
+---
+
+### Option B: Running Services Separately
+
+#### 1. Run Backend (Port 3001)
 ```bash
 cd backend
 npm install
 npm run dev
 ```
-* Backend will be running at `http://localhost:3001`.
 
-### 3. Run Frontend (Port 3000)
+#### 2. Run Frontend (Port 3000)
 In a separate terminal:
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
-* Frontend will be accessible at `http://localhost:3000`.
 
 ### 4. Pilot Credentials
 Use the official hardcoded test credentials:
