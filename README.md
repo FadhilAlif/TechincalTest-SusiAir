@@ -4,6 +4,8 @@ A modern, responsive, mobile-first flight operations web application built for S
 
 Built with **NestJS** (Backend REST API) and **Nuxt 3 / 4** (Frontend Presentation Layer).
 
+Live Deployment : https://techincal-test-susi-air.vercel.app/
+
 ---
 
 ## 🛫 Table of Contents
@@ -83,7 +85,7 @@ e:/TechincalTest-SusiAir/
 
 ### 1. Clone & Navigate to Repository
 ```bash
-git clone https://github.com/fadhilfauzan/TechnicalTest-SusiAir.git
+git clone https://github.com/FadhilAlif/TechincalTest-SusiAir.git
 cd TechnicalTest-SusiAir
 ```
 
