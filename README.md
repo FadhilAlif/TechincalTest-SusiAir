@@ -17,7 +17,6 @@ Live Deployment : https://techincal-test-susi-air.vercel.app/
 - [Core Business Rules & Design Choices](#-core-business-rules--design-choices)
 - [Testing & Quality Assurance](#-testing--quality-assurance)
 - [What We Would Change With More Time](#-what-we-would-change-with-more-time)
-- [Acceptance Criteria Checklist](#-acceptance-criteria-checklist)
 
 ---
 
@@ -234,26 +233,6 @@ Both applications compile cleanly with 0 TypeScript/SCSS errors.
    * Introduce Playwright test suites covering full user journeys: login, theme switching, rolling sum chart inspection, month pagination, and duty detail inspection.
 4. **Offline PWA Capabilities**:
    * Implement Service Worker caching for offline roster and duty limit viewing in remote Indonesian airfields with limited internet connectivity.
-
----
-
-## ✅ Acceptance Criteria Checklist
-
-| Requirement | Description | Status |
-|-------------|-------------|--------|
-| **Git Repository** | Clean, modular codebase with structured commit history | ✅ Passed |
-| **Mobile-First Responsive UI** | Pitch-perfect layout across Mobile (375px-480px), Tablet (768px), and Laptop/Desktop | ✅ Passed |
-| **Authentication** | `POST /auth/login` validates `johndoe`/`susiairtest`, rejects bad credentials, protects routes with JWT Guard | ✅ Passed |
-| **Hours to Limit Section** | 4 summary limit cards (Daily 8h, Weekly 40h, Monthly 100h, Annual 1050h) with progress indicators | ✅ Passed |
-| **Trend Chart** | SVG rolling sum chart centered on 15 May 2026, dynamic range toggles (1w-1y), horizontal red limit line | ✅ Passed |
-| **My Documents** | Expiry badges computed server-side (`safe` = green, `soon` = amber, `expired` = red) | ✅ Passed |
-| **Duty Roster Calendar** | Monthly calendar with April-June 2026 duties, `base_color` tints, completion tick & remaining duty count | ✅ Passed |
-| **Duty Detail Modal** | Rich operational modal displaying airport base, checklist completion, and CASR compliance notes | ✅ Passed |
-| **Theme System** | Default Light mode with interactive Dark mode toggle and circular View Transitions animation | ✅ Passed |
-| **Uniform Error Responses** | Global exception filter standardizing API error JSON structures | ✅ Passed |
-| **Strict Method & Comment** | `rollingWindowBluffing()` with exact `// this is a rolling sum calculation :)` comment | ✅ Passed |
-| **Date Isolation** | Reference date hardcoded to `2026-05-15` without unconstrained `new Date()` constructor calls | ✅ Passed |
-
 ---
 
 © 2026 PT ASI Pudjiastuti Aviation (Susi Air). All rights reserved.
