@@ -22,7 +22,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      apiBase: process.env.NUXT_PUBLIC_API_BASE || 'http://localhost:3001',
+      apiBase: process.env.NUXT_PUBLIC_API_BASE,
     },
   },
 
@@ -42,7 +42,8 @@ export default defineNuxtConfig({
           rel: 'stylesheet',
           href: 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap',
         },
-        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+        { rel: 'icon', type: 'image/png', href: '/susiair-logo.png' },
+        { rel: 'apple-touch-icon', href: '/susiair-logo.png' },
       ],
     },
   },
