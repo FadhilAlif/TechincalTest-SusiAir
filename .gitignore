@@ -1,0 +1,41 @@
+# AI Agent & Internal Project Tracking
+AGENTS.md
+AGENTS_TEMPLATE.md
+AI_AGENT_PROMPT_GUIDE.md
+docs/PROGRESS.md
+docs/PROGRESS_TEMPLATE.md
+docs/*_TEMPLATE.md
+
+# Node dependencies
+node_modules/
+**/node_modules/
+
+# Build outputs
+dist/
+**/dist/
+.output/
+**/.output/
+.nuxt/
+**/.nuxt/
+.nitro/
+**/.nitro/
+.cache/
+**/.cache/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# OS / Editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
