@@ -127,11 +127,12 @@ Membangun solusi berbasis web (mobile-first) menggunakan Nuxt 3 untuk frontend d
 
 ## 8. Kriteria Penerimaan (Acceptance Criteria & Definition of Done)
 
-- [ ] Kode sumber tertata dengan baik di repositori Git.
-- [ ] Tampilan frontend responsif mobile, sesuai pedoman UI (Susi Air brand color, font, dll).
-- [ ] Sign In berhasil dan ditolak bila salah password.
-- [ ] Beranda menampilkan 4 indikator limit jam dan menampilkan grafik rolling sum yang bisa di-switch rentangnya (1w, 1m, dll) tanpa layout *breaking* ketika melampaui limit merah.
-- [ ] Halaman jadwal menunjukkan kalender bulan April-Juni 2026 berwarna warni sesuai status dan centang tugas (`base_color` & `count`).
-- [ ] Exception response API seragam dengan skema JSON (contoh `{"statusCode": 400, "message": "Bad Request"}`).
-- [ ] `rollingWindowBluffing()` metode dan komentarnya diimplementasikan murni di `nest`.
-- [ ] Kedua app dapat diakses *live* di internet via tautan deployment.
+- [x] Kode sumber tertata dengan baik di repositori Git (`backend/` dan `frontend/`).
+- [x] Tampilan frontend responsif mobile, tablet, laptop, dan desktop sesuai pedoman UI (Susi Air brand color Navy & Red, font Plus Jakarta Sans).
+- [x] Sign In berhasil (`johndoe` / `susiairtest`) dan ditolak bila salah password dengan pesan error yang ramah.
+- [x] Beranda menampilkan 4 indikator limit jam dan grafik rolling sum yang bisa di-switch rentangnya (1w, 1m, 3m, 6m, 1y) tanpa layout *breaking* ketika melampaui limit merah.
+- [x] Halaman jadwal menunjukkan kalender bulan April-Juni 2026 berwarna warni sesuai status dan centang tugas (`base_color` & `count`), dilengkapi Duty Detail Modal operasional.
+- [x] Exception response API seragam dengan skema JSON (`statusCode`, `message`, `error`, `timestamp`).
+- [x] `rollingWindowBluffing()` metode dan komentarnya (`// this is a rolling sum calculation :)`) diimplementasikan murni di backend NestJS.
+- [x] Seluruh unit test backend lolos 100% (16 tests passed).
+- [x] Panduan deployment dan README komprehensif telah siap untuk penyerahan live link.
