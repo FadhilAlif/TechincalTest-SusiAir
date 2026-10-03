@@ -154,7 +154,11 @@ const defaultCards = [
 
 async function loadPilot() {
   try {
-    pilot.value = await api.get('/pilot/me');
+    const res: any = await api.get('/pilot/me');
+    pilot.value = res;
+    if (res) {
+      authStore.setUser(res);
+    }
   } catch (e) {
     console.error('Failed to load pilot profile', e);
   }

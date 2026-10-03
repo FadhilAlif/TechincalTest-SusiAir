@@ -65,7 +65,7 @@
                 class="tick-indicator"
                 title="Completed Duties"
               >
-                <Check :size="12" stroke-width="3" />
+                <Check :size="10" stroke-width="3" />
               </span>
 
               <!-- Otherwise show the number of remaining duties -->
@@ -373,7 +373,15 @@ const selectedLegendItem = computed(() => {
 
 function formatModalDate(dateStr: string): string {
   if (!dateStr) return '';
-  const [year, month, day] = dateStr.split('-').map(Number);
+  const [yearStr, monthStr, dayStr] = dateStr.split('-');
+  const year = parseInt(yearStr || '', 10);
+  const month = parseInt(monthStr || '', 10);
+  const day = parseInt(dayStr || '', 10);
+
+  if (isNaN(year) || isNaN(month) || isNaN(day)) {
+    return dateStr;
+  }
+
   const dateObj = new Date(Date.UTC(year, month - 1, day));
   return dateObj.toLocaleDateString('en-GB', {
     weekday: 'long',
@@ -438,7 +446,10 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .schedule-page {
-  gap: 18px;
+  gap: 16px;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 // Header
@@ -446,6 +457,8 @@ onMounted(() => {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
 
   .page-title {
     font-size: 20px;
@@ -453,15 +466,23 @@ onMounted(() => {
     color: var(--color-navy);
     letter-spacing: -0.3px;
 
+    @media (max-width: 380px) {
+      font-size: 18px;
+    }
+
     @media (min-width: $bp-tablet) {
       font-size: 24px;
     }
   }
 
   .page-subtitle {
-    font-size: 13px;
+    font-size: 12.5px;
     color: var(--color-text-secondary);
     margin-top: 2px;
+
+    @media (max-width: 380px) {
+      font-size: 11px;
+    }
   }
 }
 
@@ -469,27 +490,38 @@ onMounted(() => {
 .month-selector {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   background-color: var(--color-card);
   padding: 4px 8px;
   border-radius: $radius-pill;
   box-shadow: var(--shadow-sm);
   border: 1px solid var(--color-border);
+  flex-shrink: 0;
+
+  @media (max-width: 380px) {
+    padding: 3px 6px;
+    gap: 4px;
+  }
 
   .current-month-display {
-    font-size: 13px;
+    font-size: 12.5px;
     font-weight: 700;
     color: var(--color-navy);
-    min-width: 90px;
+    min-width: 82px;
     text-align: center;
+
+    @media (max-width: 380px) {
+      font-size: 11.5px;
+      min-width: 74px;
+    }
   }
 
   .nav-btn {
     background: none;
     border: none;
     color: var(--color-navy);
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -510,40 +542,95 @@ onMounted(() => {
 
 // Calendar Card
 .calendar-card {
-  padding: 16px 12px;
+  padding: 14px 8px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+
+  @media (max-width: 380px) {
+    padding: 12px 6px;
+  }
+
+  @media (min-width: $bp-tablet) {
+    padding: 24px 20px;
+  }
 
   .weekday-grid {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 4px;
     text-align: center;
     margin-bottom: 8px;
+    width: 100%;
+    box-sizing: border-box;
+
+    @media (max-width: 360px) {
+      gap: 3px;
+    }
+
+    @media (min-width: $bp-tablet) {
+      gap: 8px;
+      margin-bottom: 12px;
+    }
 
     .weekday-header {
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 700;
       color: var(--color-text-muted);
       text-transform: uppercase;
-      padding-bottom: 6px;
+      padding-bottom: 4px;
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      @media (max-width: 360px) {
+        font-size: 9px;
+      }
+
+      @media (min-width: $bp-tablet) {
+        font-size: 12px;
+        padding-bottom: 8px;
+      }
     }
   }
 
   .days-grid {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 6px;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 4px;
+    width: 100%;
+    box-sizing: border-box;
+
+    @media (max-width: 360px) {
+      gap: 3px;
+    }
+
+    @media (min-width: $bp-tablet) {
+      gap: 8px;
+    }
 
     .day-cell {
-      min-height: 52px;
+      min-height: 48px;
       background-color: var(--color-surface-soft);
-      border-radius: 8px;
+      border-radius: 7px;
       border: 1px solid var(--color-border);
-      padding: 4px 6px;
+      padding: 4px 2.5px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       cursor: pointer;
       transition: all 0.15s ease;
       position: relative;
+      min-width: 0;
+      box-sizing: border-box;
+
+      @media (max-width: 360px) {
+        min-height: 44px;
+        padding: 3px 2px;
+        border-radius: 5px;
+      }
 
       @media (min-width: $bp-tablet) {
         min-height: 82px;
@@ -579,10 +666,19 @@ onMounted(() => {
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
+        gap: 2px;
+        width: 100%;
+        min-width: 0;
 
         .day-number {
-          font-size: 11px;
+          font-size: 10.5px;
+          line-height: 1;
           color: var(--color-navy);
+          flex-shrink: 0;
+
+          @media (max-width: 360px) {
+            font-size: 9.5px;
+          }
 
           @media (min-width: $bp-tablet) {
             font-size: 13px;
@@ -594,11 +690,12 @@ onMounted(() => {
           display: flex;
           align-items: center;
           justify-content: center;
-          width: 16px;
-          height: 16px;
+          width: 13px;
+          height: 13px;
           border-radius: 50%;
           background-color: #10B981;
           color: #ffffff;
+          flex-shrink: 0;
 
           @media (min-width: $bp-tablet) {
             width: 20px;
@@ -610,14 +707,16 @@ onMounted(() => {
           display: flex;
           align-items: center;
           justify-content: center;
-          min-width: 15px;
-          height: 15px;
-          padding: 0 3px;
+          min-width: 13px;
+          height: 13px;
+          padding: 0 2px;
           border-radius: 50%;
           background-color: var(--color-navy);
           color: var(--color-bg);
-          font-size: 9px;
+          font-size: 8px;
           font-weight: 700;
+          line-height: 1;
+          flex-shrink: 0;
 
           @media (min-width: $bp-tablet) {
             min-width: 18px;
@@ -630,12 +729,26 @@ onMounted(() => {
       .cell-bottom {
         display: flex;
         justify-content: center;
+        width: 100%;
+        min-width: 0;
 
         .base-name-label {
-          font-size: 10px;
+          font-size: 9px;
           font-weight: 700;
           color: var(--color-navy);
-          letter-spacing: 0.3px;
+          letter-spacing: 0.2px;
+          line-height: 1;
+          display: block;
+          max-width: 100%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          text-align: center;
+
+          @media (max-width: 360px) {
+            font-size: 8px;
+            letter-spacing: 0;
+          }
 
           @media (min-width: $bp-tablet) {
             font-size: 13px;

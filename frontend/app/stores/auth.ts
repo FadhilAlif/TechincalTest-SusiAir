@@ -1,8 +1,10 @@
 import { defineStore } from 'pinia';
 
-interface PilotUser {
-  username: string;
+export interface PilotUser {
+  username?: string;
   name: string;
+  avatarUrl?: string;
+  totalFlightHours?: number;
 }
 
 export const useAuthStore = defineStore('auth', () => {
@@ -27,6 +29,17 @@ export const useAuthStore = defineStore('auth', () => {
 
   const isAuthenticated = computed(() => !!token.value);
 
+  function setUser(pilotData: Partial<PilotUser>) {
+    if (user.value) {
+      user.value = { ...user.value, ...pilotData };
+    } else {
+      user.value = pilotData as PilotUser;
+    }
+    if (import.meta.client) {
+      localStorage.setItem('susi_user', JSON.stringify(user.value));
+    }
+  }
+
   function setAuth(newToken: string, pilotData?: PilotUser) {
     token.value = newToken;
     if (import.meta.client) {
@@ -34,10 +47,7 @@ export const useAuthStore = defineStore('auth', () => {
     }
 
     if (pilotData) {
-      user.value = pilotData;
-      if (import.meta.client) {
-        localStorage.setItem('susi_user', JSON.stringify(pilotData));
-      }
+      setUser(pilotData);
     }
   }
 
@@ -56,6 +66,7 @@ export const useAuthStore = defineStore('auth', () => {
     user,
     isAuthenticated,
     setAuth,
+    setUser,
     logout,
   };
 });

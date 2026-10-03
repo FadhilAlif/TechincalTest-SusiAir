@@ -55,23 +55,68 @@
           </div>
         </div>
 
-        <!-- Pilot Details List -->
-        <div class="credentials-list">
-          <div class="cred-item">
-            <span class="cred-label">License Type</span>
-            <span class="cred-value">ATPL (Airline Transport Pilot)</span>
+        <!-- Pilot Qualifications & Aircraft Fleet -->
+        <div class="pilot-qualifications-section">
+          <div class="qualifications-header">
+            <span class="qualifications-title">Operational Qualifications</span>
           </div>
-          <div class="cred-item">
-            <span class="cred-label">License Number</span>
-            <span class="cred-value font-number">#SA-99420-ID</span>
-          </div>
-          <div class="cred-item">
-            <span class="cred-label">Authorized Fleet</span>
-            <span class="cred-value">Cessna 208B Grand Caravan, Pilatus PC-6 Porter, Piaggio P-180 Avanti II</span>
-          </div>
-          <div class="cred-item">
-            <span class="cred-label">Operating Base</span>
-            <span class="cred-value">Adisucipto Airport (JOG)</span>
+
+          <div class="credentials-cards-list">
+            <!-- 1. License Card -->
+            <div class="qualification-card">
+              <div class="qual-icon-orb qual-icon-license">
+                <Award :size="18" />
+              </div>
+              <div class="qual-details">
+                <div class="qual-top">
+                  <span class="qual-label">Aviation License</span>
+                  <span class="qual-badge font-number">#SA-99420-ID</span>
+                </div>
+                <div class="qual-value">ATPL (Airline Transport Pilot)</div>
+              </div>
+            </div>
+
+            <!-- 2. Operating Base Card -->
+            <div class="qualification-card">
+              <div class="qual-icon-orb qual-icon-base">
+                <MapPin :size="18" />
+              </div>
+              <div class="qual-details">
+                <div class="qual-top">
+                  <span class="qual-label">Primary Operating Base</span>
+                  <span class="qual-badge base-code font-number">JOG</span>
+                </div>
+                <div class="qual-value">Adisucipto International Airport</div>
+              </div>
+            </div>
+
+            <!-- 3. Authorized Fleet / Type Ratings Card -->
+            <div class="qualification-card fleet-card">
+              <div class="qual-icon-orb qual-icon-fleet">
+                <Plane :size="18" />
+              </div>
+              <div class="qual-details">
+                <div class="qual-top">
+                  <span class="qual-label">Authorized Aircraft Fleet</span>
+                  <span class="qual-badge fleet-count">3 Ratings</span>
+                </div>
+
+                <!-- Fleet Aircraft Chips Grid -->
+                <div class="fleet-chips-grid">
+                  <div
+                    v-for="aircraft in authorizedFleet"
+                    :key="aircraft.code"
+                    class="aircraft-chip"
+                  >
+                    <div class="chip-main">
+                      <span class="chip-dot"></span>
+                      <span class="aircraft-name">{{ aircraft.name }}</span>
+                    </div>
+                    <span class="aircraft-code font-number">{{ aircraft.code }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -190,7 +235,10 @@ import {
   Moon,
   Sparkles,
   Shield,
-  LogOut
+  LogOut,
+  Award,
+  Plane,
+  MapPin
 } from 'lucide-vue-next';
 import { useAuthStore } from '~/stores/auth';
 import { useApi } from '~/composables/useApi';
@@ -201,6 +249,12 @@ const api = useApi();
 const { isDark, toggleTheme } = useTheme();
 
 const pilot = ref<any>(authStore.user);
+
+const authorizedFleet = [
+  { name: 'Cessna 208B Grand Caravan', code: 'C208B' },
+  { name: 'Pilatus PC-6 Porter', code: 'PC-6' },
+  { name: 'Piaggio P-180 Avanti II', code: 'P180' },
+];
 
 onMounted(async () => {
   try {
@@ -404,27 +458,194 @@ onMounted(async () => {
     }
   }
 
-  .credentials-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  .pilot-qualifications-section {
     border-top: 1px solid var(--color-border);
     padding-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 
-    .cred-item {
+    .qualifications-header {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      font-size: 13px;
+      justify-content: space-between;
 
-      .cred-label {
-        color: var(--color-text-secondary);
+      .qualifications-title {
+        font-size: 11.5px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: var(--color-text-muted);
+      }
+    }
+
+    .credentials-cards-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .qualification-card {
+      background-color: var(--color-surface-soft);
+      border: 1px solid var(--color-border);
+      border-radius: $radius-sm;
+      padding: 12px 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      transition: all 0.2s ease;
+
+      @media (max-width: 380px) {
+        padding: 10px 10px;
+        gap: 10px;
       }
 
-      .cred-value {
+      &:hover {
+        border-color: rgba($color-navy, 0.2);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .qual-icon-orb {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        margin-top: 2px;
+
+        &.qual-icon-license {
+          background-color: rgba(245, 158, 11, 0.12);
+          color: #d97706;
+        }
+
+        &.qual-icon-base {
+          background-color: rgba(59, 130, 246, 0.12);
+          color: #2563eb;
+        }
+
+        &.qual-icon-fleet {
+          background-color: rgba(230, 55, 87, 0.12);
+          color: $color-red;
+        }
+      }
+
+      .qual-details {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+      }
+
+      .qual-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        flex-wrap: wrap;
+
+        .qual-label {
+          font-size: 11px;
+          font-weight: 600;
+          color: var(--color-text-muted);
+          text-transform: uppercase;
+          letter-spacing: 0.3px;
+        }
+
+        .qual-badge {
+          font-size: 10px;
+          font-weight: 700;
+          padding: 2px 7px;
+          border-radius: $radius-pill;
+          background-color: var(--color-card);
+          color: var(--color-navy);
+          border: 1px solid var(--color-border);
+          letter-spacing: 0.3px;
+
+          &.base-code {
+            background-color: rgba(59, 130, 246, 0.1);
+            color: #2563eb;
+            border-color: rgba(59, 130, 246, 0.25);
+          }
+
+          &.fleet-count {
+            background-color: rgba(230, 55, 87, 0.1);
+            color: $color-red;
+            border-color: rgba(230, 55, 87, 0.25);
+          }
+        }
+      }
+
+      .qual-value {
+        font-size: 13px;
+        font-weight: 700;
         color: var(--color-navy);
-        font-weight: 600;
-        text-align: right;
+        line-height: 1.3;
+      }
+
+      &.fleet-card {
+        .qual-details {
+          gap: 6px;
+        }
+      }
+
+      .fleet-chips-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        margin-top: 4px;
+
+        .aircraft-chip {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 6px 10px;
+          border-radius: 6px;
+          background-color: var(--color-card);
+          border: 1px solid var(--color-border);
+          gap: 8px;
+          transition: background-color 0.15s ease;
+
+          &:hover {
+            border-color: rgba($color-red, 0.3);
+          }
+
+          .chip-main {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            min-width: 0;
+
+            .chip-dot {
+              width: 6px;
+              height: 6px;
+              border-radius: 50%;
+              background-color: $color-red;
+              flex-shrink: 0;
+            }
+
+            .aircraft-name {
+              font-size: 12px;
+              font-weight: 600;
+              color: var(--color-navy);
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+          }
+
+          .aircraft-code {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--color-text-secondary);
+            background-color: var(--color-surface-soft);
+            padding: 2px 6px;
+            border-radius: 4px;
+            flex-shrink: 0;
+          }
+        }
       }
     }
   }

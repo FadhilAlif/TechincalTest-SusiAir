@@ -121,8 +121,13 @@ body {
 
   // Mobile padding (includes clearance for bottom navigation)
   @media (max-width: #{$bp-tablet - 1px}) {
-    padding: 16px 20px 88px;
-    gap: 20px;
+    padding: 16px 14px 88px;
+    gap: 18px;
+  }
+
+  @media (max-width: 360px) {
+    padding: 12px 10px 88px;
+    gap: 14px;
   }
 
   // Tablet & Desktop padding
