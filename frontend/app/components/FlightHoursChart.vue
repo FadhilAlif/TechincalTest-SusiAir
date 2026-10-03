@@ -318,8 +318,10 @@ function formatFullDate(dateStr: string): string {
   if (!dateStr) return '';
   const [y, m, d] = dateStr.split('-');
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  const monthName = months[parseInt(m, 10) - 1] || m;
-  return `${parseInt(d, 10)} ${monthName} ${y}`;
+  const monthNum = parseInt(m || '0', 10);
+  const dayNum = parseInt(d || '0', 10);
+  const monthName = months[monthNum - 1] || m || '';
+  return `${dayNum} ${monthName} ${y || ''}`.trim();
 }
 
 // Generate SVG Line Path
@@ -335,6 +337,7 @@ const areaPath = computed(() => {
   if (pts.length === 0) return '';
   const first = pts[0];
   const last = pts[pts.length - 1];
+  if (!first || !last) return '';
   return `${linePath.value} L ${last.x},${baseY} L ${first.x},${baseY} Z`;
 });
 </script>
